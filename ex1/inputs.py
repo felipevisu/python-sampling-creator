@@ -63,9 +63,7 @@ def get_stratum_sizes(stratums):
                 print('O valor informado é inválido!')
     
     # verify if sizes sum is equal to 100%
-    total = 0
-    for size in sizes:
-        total += size
+    total = sum(sizes)
     if total == 100:
         return sizes
 
