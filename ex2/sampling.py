@@ -28,10 +28,8 @@ class Sample:
 
     def deviation(self):
         mean = self.mean()
-        total = 0
-        for item in self.items:
-            total += (item - mean)**2
-        return round(total/self.size, 2)
+        deviation = sum([(item - mean)**2 for item in self.items])/self.size
+        return round(deviation, 2)
 
     def printter(self, i):
         print(f"Amostragem {i}")
@@ -48,15 +46,15 @@ class Resample:
         self.n = n
 
     def mean(self):
-        mean = sum([sample.mean() for sample in self.samples])/len(self.samples)
+        mean = sum([sample.mean() for sample in self.samples])/self.n
         return round(mean, 2)
 
     def average(self):
-        mean = sum([sample.average() for sample in self.samples])/len(self.samples)
+        mean = sum([sample.average() for sample in self.samples])/self.n
         return round(mean, 2)
 
     def deviation(self):
-        mean = sum([sample.deviation() for sample in self.samples])/len(self.samples)
+        mean = sum([sample.deviation() for sample in self.samples])/self.n
         return round(mean, 2)
 
     def execute(self):
