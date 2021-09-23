@@ -1,6 +1,6 @@
 
 from inputs import get_sample, get_n
-from sample import Sample, resample
+from sampling import Sample, resample
 
 
 original = Sample(get_sample())
