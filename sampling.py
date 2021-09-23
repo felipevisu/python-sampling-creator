@@ -1,9 +1,10 @@
 from abc import ABCMeta, abstractmethod
 from random import randint
 
-from utils import get_stratums, get_stratum_sizes
+from inputs import get_stratums, get_stratum_sizes
 
 
+# interface to create the ideal sampling
 class SamplingInterface(metaclass=ABCMeta):
     def __init__(self, pop_size, sample_size):
         self.pop_size = pop_size
@@ -23,9 +24,11 @@ class SamplingInterface(metaclass=ABCMeta):
 class SimpleSampling(SamplingInterface):
 
     def build_sample(self):
-        for _ in range(0, self.sample_size):
-            index = randint(0, self.pop_size-1)
-            self.sample.append(self.population[index])
+        population = self.population.copy()
+        for i in range(0, self.sample_size):
+            index = randint(0, self.pop_size-1-i)
+            item = population.pop(index)
+            self.sample.append(item)
 
     def printter(self):
         print(self.sample)
@@ -37,7 +40,10 @@ class SystematicSampling(SamplingInterface):
         k = int(self.pop_size/self.sample_size)
         index = randint(0, self.sample_size-1)
         for _ in range(0, self.sample_size):
-            self.sample.append(self.population[index])
+            if index > self.pop_size: # make a circular iterator
+                index = index - self.pop_size
+            item = self.population[index]
+            self.sample.append(item)
             index += k
 
     def printter(self):
@@ -51,17 +57,20 @@ class StratifiedSampling(SamplingInterface):
         sizes = get_stratum_sizes(stratums)
         begin = 0
         
+        # split the population in stratums
         for id, size in enumerate(sizes):
             stratum = []
             end = int(self.pop_size*size/100) + begin
             for index in range(begin, end):
                 stratum.append(self.population[index])
-            begin = end
+            begin = end # go to the next stratum
 
+            # apply the simple sampling for the current stratum
             n = int(self.sample_size*size/100)
-            for _ in range(0, n):
-                index = randint(0, size-1)
-                self.sample.append((id, stratum[index]))
+            for i in range(0, n):
+                index = randint(0, size-1-i)
+                item = stratum.pop(index)
+                self.sample.append((id, item))
 
     def printter(self):
         print(self.sample)
