@@ -42,11 +42,10 @@ class Sample:
 
 
 class Resample:
-    def __init__(self, samples):
-        self.samples = samples
-
-    def add_sample(self, sample):
-        self.samples.append(sample)
+    def __init__(self, original, n):
+        self.samples = []
+        self.original = original
+        self.n = n
 
     def mean(self):
         mean = sum([sample.mean() for sample in self.samples])/len(self.samples)
@@ -60,31 +59,24 @@ class Resample:
         mean = sum([sample.deviation() for sample in self.samples])/len(self.samples)
         return round(mean, 2)
 
+    def execute(self):
+        self.original.printter("original")
+        for i in range(0, self.n):
+            sample_vector = []
+            size = self.original.size
+            
+            for _ in range(0, self.n):
+                index = randint(0, size-1)
+                item = self.original.get_item(index)
+                sample_vector.append(item)
+
+            sample = Sample(sample_vector)
+            sample.printter(i+1)
+            self.samples.append(sample)
+
     def printter(self):
         print("Resultados gerais")
         print(f"Média das médias: {self.mean()}")
         print(f"Média das medianas: {self.average()}")
         print(f"Média dos desvios: {self.deviation()}")
         print()
-
-
-def resample(original, n):
-    resample = Resample([])
-    original.printter("original")
-    
-    for i in range(0, n):
-        sample_vector = []
-        size = original.size
-        
-        for _ in range(0, n):
-            index = randint(0, size-1)
-            item = original.get_item(index)
-            sample_vector.append(item)
-
-        sample = Sample(sample_vector)
-        sample.printter(i+1)
-        resample.add_sample(sample)
-
-    resample.printter()
-
-    
