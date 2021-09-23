@@ -1,4 +1,3 @@
-
 from inputs import get_sample, get_n
 from sampling import Sample, resample
 

@@ -49,24 +49,15 @@ class Resample:
         self.samples.append(sample)
 
     def mean(self):
-        total = 0
-        for sample in self.samples:
-            total += sample.mean()
-        mean = total/len(self.samples)
+        mean = sum([sample.mean() for sample in self.samples])/len(self.samples)
         return round(mean, 2)
 
     def average(self):
-        total = 0
-        for sample in self.samples:
-            total += sample.average()
-        mean = total/len(self.samples)
+        mean = sum([sample.average() for sample in self.samples])/len(self.samples)
         return round(mean, 2)
 
     def deviation(self):
-        total = 0
-        for sample in self.samples:
-            total += sample.deviation()
-        mean = total/len(self.samples)
+        mean = sum([sample.deviation() for sample in self.samples])/len(self.samples)
         return round(mean, 2)
 
     def printter(self):
