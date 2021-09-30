@@ -6,7 +6,7 @@ def get_pop_size():
                 return pop_size
             else:
                 print('O valor deve ser um inteiro positivo!')
-        except:
+        except Exception:
             print('O valor informado é inválido!')
 
 
@@ -18,7 +18,7 @@ def get_sample_size(pop_size):
                 return sample_size
             else:
                 print('O valor deve ser um inteiro positivo e menor que a população')
-        except:
+        except Exception:
             print('O valor informado é inválido!')
 
 
