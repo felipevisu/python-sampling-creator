@@ -31,7 +31,7 @@ def get_sample_type():
                 return sample_type
             else:
                 print('O valor informado é inválido!')
-        except:
+        except Exception:
             print('O valor informado é inválido!')
 
 
@@ -43,7 +43,7 @@ def get_stratums(pop_size):
                 return stratums
             else:
                 print(f'O número de estratos deve ser maior que 0 e menor que {pop_size}')
-        except:
+        except Exception:
             print('O valor informado é inválido!')
 
 
@@ -59,7 +59,7 @@ def get_stratum_sizes(stratums):
                     break
                 else:
                     print('O tamanho deve ser maior que 0 e menor que 100')
-            except:
+            except Exception:
                 print('O valor informado é inválido!')
     
     # verify if sizes sum is equal to 100%

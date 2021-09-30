@@ -1,5 +1,5 @@
 from random import randint
-
+from math import sqrt
 
 class Sample:
     def __init__(self, items):
@@ -28,7 +28,7 @@ class Sample:
 
     def deviation(self):
         mean = self.mean()
-        deviation = sum([(item - mean)**2 for item in self.items])/self.size
+        deviation = sqrt(sum([(item - mean)**2 for item in self.items])/self.size)
         return round(deviation, 2)
 
     def printter(self, i):

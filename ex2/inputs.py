@@ -1,13 +1,13 @@
 def get_sample():
     sample = []
     print("Cadastre os valores de sua amostra")
-    print("Para sair informe qualquer valor que não seja um número inteiro")
+    print("Para finalizar informe qualquer valor diferente de um número inteiro")
 
     while True:
         try:
             value = int(input("Digite um valor:\n-> "))
             sample.append(value)
-        except:
+        except Exception:
             break
 
     return sample
@@ -21,5 +21,5 @@ def get_n():
                 return n
             else:
                 print("O número deve ser maior que 0")
-        except:
+        except Exception:
             print("O valor deve ser um número inteiro")
