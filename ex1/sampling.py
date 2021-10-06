@@ -54,20 +54,19 @@ class StratifiedSampling(SamplingInterface):
 
     def build_sample(self):
         stratums = get_stratums(self.pop_size)
-        sizes = get_stratum_sizes(stratums)
+        sizes = get_stratum_sizes(stratums, self.sample_size)
         begin = 0
         
         # split the population in stratums
         for id, size in enumerate(sizes):
             stratum = []
-            end = int(self.pop_size*size/100) + begin
+            end = size + begin
             for index in range(begin, end):
                 stratum.append(self.population[index])
             begin = end # go to the next stratum
 
             # apply the simple sampling for the current stratum
-            n = int(self.sample_size*size/100)
-            for i in range(0, n):
+            for i in range(0, size):
                 index = randint(0, size-1-i)
                 item = stratum.pop(index)
                 self.sample.append((id, item))
