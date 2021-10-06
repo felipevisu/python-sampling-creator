@@ -47,24 +47,25 @@ def get_stratums(pop_size):
             print('O valor informado é inválido!')
 
 
-def get_stratum_sizes(stratums, sample_size):
+def get_stratum_sizes(stratums):
     sizes = []
-    print("Informe o tamanho de cada estrato, a soma de todos deve ser o tamanho da amostra")
+    print("Informe o tamanho de cada estrato em porcentagem. Ex.: 20")
     for i in range(0, stratums): # define one size for each statrum
         while True:
             try:
                 size = int(input(f"Informe o tamanho do estrado {i+1}\n-> "))
-                if size > 0 and size <= sample_size:
+                if size > 0 and size <= 100:
                     sizes.append(size)
                     break
                 else:
-                    print(f'O tamanho deve ser maior que 0 e menor ou igual a {sample_size}')
+                    print('O tamanho deve ser maior que 0 e menor que 100')
             except Exception:
                 print('O valor informado é inválido!')
     
     # verify if sizes sum is equal to 100%
-    if sum(sizes) == sample_size:
+    total = sum(sizes)
+    if total == 100:
         return sizes
 
-    print(f"Erro! A soma do tamanho de todos extratos deve ser {sample_size}")
-    return get_stratum_sizes(stratums, sample_size)
+    print("Erro! A soma do tamanho de todos extratos deve ser 100%")
+    return get_stratum_sizes(stratums)
